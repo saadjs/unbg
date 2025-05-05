@@ -167,6 +167,8 @@ p {
 .drop-zone.dragover {
 	border-color: var(--primary);
 	background-color: rgba(255, 87, 34, 0.05);
+	transform: scale(1.02);
+	transition: all 0.2s ease;
 }
 
 .drop-zone-icon {
@@ -189,6 +191,8 @@ p {
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 	margin-top: 1rem;
+	position: relative;
+	overflow: hidden;
 }
 
 .upload-btn:hover {
@@ -200,12 +204,34 @@ p {
 	cursor: not-allowed;
 }
 
+.upload-btn:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	transition: width 0.3s, height 0.3s;
+}
+
+.upload-btn:active:after {
+	width: 200px;
+	height: 200px;
+}
+
 .preview-container {
 	display: none;
 	width: 100%;
 	margin-top: 2rem;
 	flex-direction: column;
 	align-items: center;
+	background-color: var(--bg-white);
+	border-radius: 12px;
+	padding: 2rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .image-preview {
@@ -222,6 +248,10 @@ p {
 	margin-top: 2rem;
 	flex-direction: column;
 	align-items: center;
+	background-color: var(--bg-white);
+	border-radius: 12px;
+	padding: 2rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .result-image {
@@ -242,11 +272,39 @@ p {
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 	text-decoration: none;
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 44px;
+	position: relative;
+	overflow: hidden;
 }
 
 .download-btn:hover {
 	background-color: #0061d9;
+}
+
+.download-btn:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 200px;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	transition: width 0.3s, height 0.3s;
+}
+
+.download-btn:active:after {
+	width: 200px;
+	height: 200px;
+}
+
+.download-btn i {
+	margin-right: 0.5rem;
+	font-size: 1rem;
 }
 
 .loading {
@@ -254,6 +312,17 @@ p {
 	flex-direction: column;
 	align-items: center;
 	margin-top: 2rem;
+	background-color: var(--bg-white);
+	border-radius: 12px;
+	padding: 2rem;
+	width: 100%;
+	text-align: center;
+}
+
+.loading-detail {
+	font-size: 0.9rem;
+	color: var(--text-light);
+	margin-top: 0.5rem;
 }
 
 .spinner {
@@ -279,6 +348,25 @@ p {
 	color: var(--error);
 	margin-top: 1rem;
 	display: none;
+	background-color: rgba(255, 0, 0, 0.1);
+	border: 1px solid var(--error);
+	border-radius: 8px;
+	padding: 1rem;
+	text-align: center;
+	animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-10px);
+	}
+	75% {
+		transform: translateX(10px);
+	}
 }
 
 .reset-btn {
@@ -322,6 +410,55 @@ p {
 	font-size: 1.25rem;
 }
 
+.file-info {
+	background-color: var(--bg-white);
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	padding: 1rem;
+	margin: 1rem 0;
+	width: 100%;
+}
+
+.file-info p {
+	margin: 0.5rem 0;
+	font-size: 0.9rem;
+	color: var(--text-light);
+}
+
+.button-group {
+	display: flex;
+	gap: 1rem;
+	margin-top: 1rem;
+	justify-content: center;
+	width: 100%;
+}
+
+.button-group .download-btn,
+.button-group .reset-btn {
+	width: 250px;
+	height: 44px;
+	padding: 0 1.5rem;
+	text-align: center;
+	justify-content: center;
+	display: inline-flex;
+	align-items: center;
+	margin-top: 0;
+}
+
+/* Make sure download icon doesn't affect button width */
+.download-btn i {
+	margin-right: 0.5rem;
+	font-size: 1rem;
+}
+
+/* Improve accessibility focus styles */
+button:focus-visible,
+a:focus-visible {
+	outline: 2px solid var(--primary);
+	outline-offset: 2px;
+}
+
+/* Improve mobile responsiveness */
 @media (max-width: 768px) {
 	.drop-zone {
 		padding: 1.5rem;
@@ -330,5 +467,26 @@ p {
 
 	h1 {
 		font-size: 2rem;
+	}
+
+	.button-group {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.button-group .download-btn,
+	.button-group .reset-btn {
+		width: 100%;
+		max-width: 250px;
+	}
+
+	.footer-content {
+		flex-direction: column;
+		gap: 1rem;
+		text-align: center;
+	}
+
+	.footer-right {
+		flex-direction: column;
 	}
 }
