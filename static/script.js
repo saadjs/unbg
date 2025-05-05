@@ -35,6 +35,8 @@ function validateFile(file) {
 		);
 		return false;
 	}
+	// Clear any existing error message when file is valid
+	errorMessage.style.display = 'none';
 	return true;
 }
 
