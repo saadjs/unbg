@@ -1,6 +1,6 @@
 # unbg
 
-A simple Flask app to remove background from images.
+A simple Flask app to remove background from images using [rembg](https://github.com/danielgatis/rembg).
 
 ## Development
 
