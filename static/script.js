@@ -14,28 +14,15 @@ const errorMessage = document.getElementById('errorMessage');
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-function formatFileSize(bytes) {
-	if (bytes === 0) return '0 Bytes';
-	const k = 1024;
-	const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-	const i = Math.floor(Math.log(bytes) / Math.log(k));
-	return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
-
 function validateFile(file) {
 	if (!file.type.match('image.*')) {
 		showError('Please select an image file');
 		return false;
 	}
 	if (file.size > MAX_FILE_SIZE) {
-		showError(
-			`File size too large. Maximum size is ${formatFileSize(
-				MAX_FILE_SIZE
-			)}`
-		);
+		showError('File size too large. Maximum size is 10MB');
 		return false;
 	}
-	// Clear any existing error message when file is valid
 	errorMessage.style.display = 'none';
 	return true;
 }
@@ -46,22 +33,6 @@ function showFilePreview(file) {
 		imagePreview.src = e.target.result;
 		previewContainer.style.display = 'flex';
 		dropZone.style.display = 'none';
-
-		// Remove existing file info if any
-		const existingFileInfo = previewContainer.querySelector('.file-info');
-		if (existingFileInfo) {
-			existingFileInfo.remove();
-		}
-
-		// Add file info
-		const fileInfo = document.createElement('div');
-		fileInfo.className = 'file-info';
-		fileInfo.innerHTML = `
-            <p>File: ${file.name}</p>
-            <p>Size: ${formatFileSize(file.size)}</p>
-            <p>Type: ${file.type}</p>
-        `;
-		previewContainer.insertBefore(fileInfo, processBtn);
 	};
 	reader.readAsDataURL(file);
 	uploadBtn.disabled = false;
