@@ -45,6 +45,12 @@ function showFilePreview(file) {
 		previewContainer.style.display = 'flex';
 		dropZone.style.display = 'none';
 
+		// Remove existing file info if any
+		const existingFileInfo = previewContainer.querySelector('.file-info');
+		if (existingFileInfo) {
+			existingFileInfo.remove();
+		}
+
 		// Add file info
 		const fileInfo = document.createElement('div');
 		fileInfo.className = 'file-info';

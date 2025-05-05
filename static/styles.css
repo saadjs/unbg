@@ -263,7 +263,7 @@ p {
 }
 
 .download-btn {
-	background-color: var(--success);
+	background-color: var(--primary);
 	color: white;
 	border: none;
 	padding: 0.75rem 1.5rem;
